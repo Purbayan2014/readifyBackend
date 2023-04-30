@@ -17,6 +17,7 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
     // The allowed origins for CORS requests
     private final String allowedOrigins = "http://localhost:3000";
 
+
     /**
      * Configures the Spring Data REST repository.
      * Exposes the IDs of the Book entity and disables unsupported HTTP methods.
@@ -43,9 +44,12 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
         // Set up CORS policy for the API
         cors.addMapping(
-                config.getBasePath() + "/**"
-        ).allowedOrigins(allowedOrigins);
-
+                config.getBasePath() + "/**")
+                .allowedOrigins(allowedOrigins)
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true)
+                .maxAge(3600);
     }
 
     /**
