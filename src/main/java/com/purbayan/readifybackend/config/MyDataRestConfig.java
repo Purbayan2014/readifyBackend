@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 public class MyDataRestConfig implements RepositoryRestConfigurer {
 
     // The allowed origins for CORS requests
-    private final String allowedOrigins = "http://localhost:3000";
+    private final String allowedOrigins = "*";
 
 
     /**
@@ -45,7 +45,7 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         // Set up CORS policy for the API
         cors.addMapping(
                 config.getBasePath() + "/**")
-                .allowedOrigins(allowedOrigins)
+                .allowedOriginPatterns(allowedOrigins)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true)
