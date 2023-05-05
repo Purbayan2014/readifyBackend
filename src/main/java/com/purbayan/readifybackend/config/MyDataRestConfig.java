@@ -1,6 +1,7 @@
 package com.purbayan.readifybackend.config;
 
 import com.purbayan.readifybackend.entity.Book;
+import com.purbayan.readifybackend.entity.Review;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -38,9 +39,12 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
                 HttpMethod.POST
         };
         disableHttpMethods(Book.class, config, unsupportedActions);
+        disableHttpMethods(Review.class, config, unsupportedActions);
 
         // Expose the IDs of the Book entity
         config.exposeIdsFor(Book.class);
+        // Expose the IDs of the Review entity
+        config.exposeIdsFor(Review.class);
 
         // Set up CORS policy for the API
         cors.addMapping(
