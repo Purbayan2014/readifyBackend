@@ -22,6 +22,17 @@ public class BookService {
         this.checkOutRepository = checkOutRepository;
     }
 
+    // Check if the Book has been checked out by the user or not
+    public Boolean checkoutBookByUser(String userEmail, Long bookId) {
+        CheckOut validateCheckout = checkOutRepository.findByUserEmailAndBookId(userEmail,bookId);
+        return validateCheckout != null;
+    }
+
+    // Get the count of books loaned by the user
+    public int currentLoansCount(String userEmail) {
+        return checkOutRepository.findBookByUserEmail(userEmail).size();
+    }
+
     public Book checkoutBook(String userEmail, Long bookId) throws Exception {
 
         // Find the book with the given bookId
@@ -53,4 +64,6 @@ public class BookService {
         // Return the book that has been checked out
         return book.get();
     }
+
+
 }

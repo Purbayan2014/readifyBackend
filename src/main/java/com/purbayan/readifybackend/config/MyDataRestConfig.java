@@ -1,6 +1,7 @@
 package com.purbayan.readifybackend.config;
 
 import com.purbayan.readifybackend.entity.Book;
+import com.purbayan.readifybackend.entity.CheckOut;
 import com.purbayan.readifybackend.entity.Review;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -34,17 +35,20 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         // Disable PATCH, PUT, DELETE, and POST HTTP methods
         HttpMethod[] unsupportedActions = {
                 HttpMethod.PATCH,
-                HttpMethod.PUT,
+//                HttpMethod.PUT,
                 HttpMethod.DELETE,
                 HttpMethod.POST
         };
         disableHttpMethods(Book.class, config, unsupportedActions);
         disableHttpMethods(Review.class, config, unsupportedActions);
+        disableHttpMethods(CheckOut.class, config, unsupportedActions);
 
         // Expose the IDs of the Book entity
         config.exposeIdsFor(Book.class);
         // Expose the IDs of the Review entity
         config.exposeIdsFor(Review.class);
+        //
+        config.exposeIdsFor(CheckOut.class);
 
         // Set up CORS policy for the API
         cors.addMapping(
@@ -73,6 +77,8 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
                 .withAssociationExposure(((metdata, httpMethods) ->
                         httpMethods.disable(unsupportedActions)))
                 .withCollectionExposure((metdata, httpMethods) ->
+                        httpMethods.disable(unsupportedActions))
+                .withItemExposure((metdata, httpMethods) ->
                         httpMethods.disable(unsupportedActions));
     }
 
